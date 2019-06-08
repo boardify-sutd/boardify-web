@@ -1,25 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component }from 'react';
+import Appbar from './components/Appbar'
+import GetStarted from './components/GetStarted'
+import Login from './components/Login'
+import Signup from './components/Signup'; 
+import Homepage from './components/Homepage'
+import Classes from './components/Classes'
+import ClassesWeek from './components/ClassesWeek';
+import LoginSignup from './components/LoginSignup'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Switch>
+          {/*Starting page*/}
+          <Route path="/" component={Login} exact/>
+
+          {/*Sign up page*/}
+          <Route path="/signup" component={Signup}/>
+
+          {/*Home page*/}
+          <Route path="/home" component={Homepage}/>
+
+          {/*Classes page*/}
+          <Route path="/myclasses" component={Classes}/>
+
+          {/*ClassesWeek page, need to render it dynamically*/}
+          <Route path="/week1" component={ClassesWeek}/>
+
+          {/*Recently viewed page*/}
+          <Route path="/recent" component={Classes}/>
+
+          {/*Favourites page*/}
+          <Route path="/favourites" component={ClassesWeek}/>
+
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
