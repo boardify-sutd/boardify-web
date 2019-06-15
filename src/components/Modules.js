@@ -1,14 +1,16 @@
 import React from 'react'
 import Appbar from './Appbar';
-import { makeStyles, Typography, Grid, Card, CardMedia, CardContent, IconButton, Breadcrumbs, List, ListItem, Popover } from '@material-ui/core';
+import { makeStyles, Typography, Grid, Card, CardMedia, CardContent, CardActions, IconButton, Breadcrumbs } from '@material-ui/core';
 import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
 import Lake from './media/At the lake.jpg'
 
 const useStyles = makeStyles((theme) => ({
+    main: {
+        
+    },
     classGrid: {
         position: 'relative',
-        alignContent: 'center'
     },
     cardContent: {
         display: 'flex',
@@ -17,43 +19,26 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar
 }))
 
-function ClassesWeek() {
+function Modules() {
     const classes = useStyles()
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl)
-
-    function handleClick(event) {
-        setAnchorEl(event.currentTarget);
-    }
-    
-      function handleClose() {
-        setAnchorEl(null);
-    }
-
     return (
-        <div>
+        <div className={classes.main}>
             <Appbar />
 
             {/*This div is to move content below appbar */}
             <div className={classes.toolbar} />
 
-            {/*Inside One Week*/ }
             <Breadcrumbs separator="›" aria-label="Breadcrumb">
                 <Link color="inherit" to="/home" >
                     Home
                 </Link>
-                <Link color="inherit" to="/mymodules" >
-                    My Modules
-                </Link>
-                <Link color="inherit" to="/myclasses" >
-                    Physics
-                </Link>
-                <Typography color="textPrimary">Week 1</Typography>
+                <Typography color="textPrimary">My Modules</Typography>
             </Breadcrumbs>
+            {/*One week grid*/ }
             <div>
                 <Grid container spacing="3" className={classes.classGrid}>
-                    <Grid item xs={12}> 
-                        <Typography variant="h2">Week 1</Typography>
+                    <Grid item > 
+                        <Typography> Term 1 > </Typography>
                     </Grid>
                     <Grid item>
                         <Card>
@@ -62,11 +47,8 @@ function ClassesWeek() {
                                     image="./media/At the lake.jpg"
                                 />
                                 <Typography variant="body2" component="p">
-                                    Card meta data
+                                    Physics
                                 </Typography>
-                                <IconButton onClick={handleClick}>
-                                    <MoreVertRounded />
-                                </IconButton>
                             </CardContent>
                         </Card>
                     </Grid>
@@ -77,11 +59,8 @@ function ClassesWeek() {
                                     image="./media/At the lake.jpg"
                                 />
                                 <Typography variant="body2" component="p">
-                                    Card meta data
+                                    Maths
                                 </Typography>
-                                <IconButton onClick={handleClick}>
-                                    <MoreVertRounded />
-                                </IconButton>
                             </CardContent>
                         </Card>
                     </Grid>
@@ -92,11 +71,8 @@ function ClassesWeek() {
                                     image="./media/At the lake.jpg"
                                 />
                                 <Typography variant="body2" component="p">
-                                    Card meta data
+                                    HASS
                                 </Typography>
-                                <IconButton onClick={handleClick}>
-                                    <MoreVertRounded />
-                                </IconButton>
                             </CardContent>
                         </Card>
                     </Grid>
@@ -107,41 +83,16 @@ function ClassesWeek() {
                                     image="./media/At the lake.jpg"
                                 />
                                 <Typography variant="body2" component="p">
-                                    Card meta data
+                                    Bio-Chem
                                 </Typography>
-                                <IconButton onClick={handleClick}>
-                                    <MoreVertRounded />
-                                </IconButton>
                             </CardContent>
                         </Card>
                     </Grid>
                 </Grid>
             </div>
-            <Popover 
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'center',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'center',
-                    horizontal: 'left',
-                }}
-                >
-                <List component="nav">
-                    <ListItem>
-                        Download
-                    </ListItem>
-                    <ListItem>
-                        Save to favourites
-                    </ListItem>
-                </List>
-            </Popover>
         </div>
     )
 
 }
 
-export default ClassesWeek;
+export default Modules;

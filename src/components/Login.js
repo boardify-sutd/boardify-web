@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
-import { Paper, InputBase, Link, Button } from '@material-ui/core';
+import { Paper, InputBase, Button } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl'
 import { withStyles } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import Switch from '@material-ui/core/Switch';
+import { Link } from 'react-router-dom';
 
 // const outerTheme = createMuiTheme({
 //     palette: {
@@ -21,7 +22,7 @@ import Switch from '@material-ui/core/Switch';
 const useStyles = makeStyles((theme) => ({
     main: {
         width: 'auto',
-        display: 'flex', // Fix IE 11 issue.
+        display: 'block', // Fix IE 11 issue.
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
         [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
@@ -83,6 +84,8 @@ function Login() {
                         <Button type="submit">LOG IN</Button>
                     </form>
                 </Paper>
+
+                <Link to="/signup">Create an account</Link>
             </main>
         </div>
     );

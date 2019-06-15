@@ -3,20 +3,23 @@ import AppBar from '@material-ui/core/AppBar'
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsNoneOutlined from '@material-ui/icons/NotificationsNoneOutlined'
-import { InputBase, Badge, ListItem } from '@material-ui/core';
+import { InputBase, Badge, ListItem, Toolbar } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import SettingsOutlined from '@material-ui/icons/SettingsOutlined'
 import Avatar from '@material-ui/core/Avatar'
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { Popover, List, SwipeableDrawer } from '@material-ui/core'
+import Boardify from './media/Boardify.png'
+import Lake from './media/At the lake.jpg'
 
 const useStyles = makeStyles(theme => ({
     appbar: {
         display: 'flex',
         flexDirection: 'row',
-        flexGrow: '1',
+        alignItems: 'center',
         backgroundColor: "transparent",
-        boxShadow: 'none'
+        boxShadow: 'none',
+        justifyContent: 'space-between'
     },
     search: {
         position: 'relative',
@@ -37,7 +40,9 @@ const useStyles = makeStyles(theme => ({
         height: 'auto', 
         width: 'auto'
     },
-    button: {
+    sideIcons: {
+    },
+    image: {
     }
 }));
 
@@ -68,7 +73,7 @@ function Appbar() {
 
     return (
         <AppBar position="fixed" className = {classes.appbar}>
-            <img src="src\media\Boardify.png"></img>
+            <img className={classes.image} src={Boardify}></img>
             <div className={classes.search}>
                 <InputBase
                     placeholder="Search classes, boards or keywords" 
@@ -77,17 +82,19 @@ function Appbar() {
                     <SearchIcon />
                 </IconButton>
             </div>
-            <IconButton className={classes.button} onClick={handleClick}>
-                <Badge variant="dot" color="primary">
-                    <NotificationsNoneOutlined />
-                </Badge>
-            </IconButton>
-            <IconButton className={classes.button}>
-                <SettingsOutlined />
-            </IconButton>
-            <IconButton className={classes.button} onClick={toggleDrawer(true)}>
-                <Avatar img="src\media\At the lake.jpg"></Avatar>    
-            </IconButton>        
+            <div className={classes.sideIcons}>
+                <IconButton className={classes.button} onClick={handleClick}>
+                    <Badge variant="dot" color="primary">
+                        <NotificationsNoneOutlined />
+                    </Badge>
+                </IconButton>
+                <IconButton className={classes.button}>
+                    <SettingsOutlined />
+                </IconButton>
+                <IconButton className={classes.button} onClick={toggleDrawer(true)}>
+                    <Avatar src={Lake}></Avatar>    
+                </IconButton>  
+            </div>      
             <Popover 
                 open={open}
                 anchorEl={anchorEl}

@@ -3,10 +3,11 @@ import Appbar from './Appbar';
 import { makeStyles, Typography, Grid, Card, CardMedia, CardContent, CardActions, IconButton, Breadcrumbs } from '@material-ui/core';
 import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
+import Lake from './media/At the lake.jpg'
 
 const useStyles = makeStyles((theme) => ({
     main: {
-        position: 'relative'
+        
     },
     classGrid: {
         position: 'relative',
@@ -14,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     cardContent: {
         display: 'flex',
         flexDirection: 'row'
-    }
+    },
+    toolbar: theme.mixins.toolbar
 }))
 
 function Classes() {
@@ -22,9 +24,16 @@ function Classes() {
     return (
         <div className={classes.main}>
             <Appbar />
+
+            {/*This div is to move content below appbar */}
+            <div className={classes.toolbar} />
+
             <Breadcrumbs separator="›" aria-label="Breadcrumb">
                 <Link color="inherit" to="/home" >
                     Home
+                </Link>
+                <Link color="inherit" to="/mymodules" >
+                    My Modules
                 </Link>
                 <Typography color="textPrimary">Physics</Typography>
             </Breadcrumbs>

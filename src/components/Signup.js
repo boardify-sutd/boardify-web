@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
-import { Paper, InputBase, Link, Button, Divider } from '@material-ui/core';
+import { Paper, InputBase, Button, Divider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl'
 import { withStyles } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import Switch from '@material-ui/core/Switch';
+import { Link } from 'react-router-dom';
 
 // const outerTheme = createMuiTheme({
 //     palette: {
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: 'auto',
             marginRight: 'auto',
         },
-        background: '#304457'
     },
     paper: {
         marginTop: theme.spacing.unit * 8,
@@ -67,6 +67,8 @@ function Signup() {
                     <Typography>With this, you agree to Boardify's terms and conditions.</Typography>
                     <Button type="submit">SIGN UP</Button>
                 </Paper>
+
+                <Link to="/">Log in to your account</Link>
             </main>
         </div>
     );

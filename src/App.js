@@ -1,13 +1,17 @@
 import React, {Component }from 'react';
 import Appbar from './components/Appbar'
-import GetStarted from './components/GetStarted'
 import Login from './components/Login'
 import Signup from './components/Signup'; 
 import Homepage from './components/Homepage'
 import Classes from './components/Classes'
 import ClassesWeek from './components/ClassesWeek';
-import LoginSignup from './components/LoginSignup'
+import Modules from './components/Modules'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import BoardCard from './components/BoardCard';
+
+/*
+TODO: Fix card media in ClassesWeek, Classes and Modules
+*/
 
 function App() {
   return (
@@ -22,6 +26,9 @@ function App() {
 
           {/*Home page*/}
           <Route path="/home" component={Homepage}/>
+
+          {/*Modules page*/}
+          <Route path="/mymodules" component={Modules}/>
 
           {/*Classes page*/}
           <Route path="/myclasses" component={Classes}/>
