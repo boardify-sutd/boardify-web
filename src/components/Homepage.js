@@ -87,7 +87,7 @@ function Homepage() {
 
 
             {/*Recently viewed grid*/}
-            { /*
+            
             <div>
                 <Grid container spacing="3" className={classes.classGrid}>
                     <Grid item xs = {12}> 
@@ -161,7 +161,7 @@ function Homepage() {
                     </Grid>
                 </Grid>
             </div>
-            */}
+            
 
             <div>
 
