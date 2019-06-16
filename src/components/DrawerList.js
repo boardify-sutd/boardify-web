@@ -7,7 +7,7 @@ function DrawerList(props) {
 
     return (
         <SwipeableDrawer
-            anchor="right"
+            anchor="left"
             open={isOpen}
             onClose={props.toggleDrawer(false)}
             onOpen={props.toggleDrawer(true)}
