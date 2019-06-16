@@ -16,6 +16,8 @@ import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Folder from "@material-ui/icons/Folder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import BoardCard from './BoardCard';
+import ClassModuleCard from './ClassModuleCard'
 
 const useStyles = makeStyles(theme => ({
   main: {},
@@ -45,10 +47,28 @@ const useStyles = makeStyles(theme => ({
 
 const mods = ["Physics", "Math", "HASS", "Biology"];
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+function Homepage() {   
+    const classes = useStyles()
 
-function Homepage() {
-  const classes = useStyles();
-  return (
+    const [open, setOpen] = React.useState(false);
+    const [boards, setBoards] = React.useState([]);
+
+    function handleClickOpen() {
+        setOpen(true);
+    }
+
+    function handleClose() {
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        fetch('http://boardify.ml/module/1')
+            .then(response => response.json())
+            .then(data => console.log(data));
+    })
+
+    return (
+
     <div className={classes.main}>
       <Appbar />
       {/*Classes grid*/}

@@ -9,9 +9,10 @@ import Settings from '@material-ui/icons/Settings'
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '@material-ui/core/Avatar'
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { Popover, List, SwipeableDrawer } from '@material-ui/core'
 import Boardify from './media/Boardify.png'
 import Lake from './media/At the lake.jpg'
+import DrawerList from './DrawerList';
+import NotificationsPopover from './NotificationsPopover';
 import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -95,9 +96,9 @@ function Appbar() {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
           return;
         }
-    
+        
         setState({...state, isOpen: open });
-      };
+    };
   
     const open = Boolean(anchorEl);
 
@@ -138,39 +139,15 @@ function Appbar() {
                 <IconButton color="inherit">
                     <Avatar src={Lake}></Avatar>    
                 </IconButton>  
-            </div>
+            </div>      
             
-            <Popover 
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                >
-                <List component="div">
-                    <ListItem>
-                        Glenn has liked your post!
-                    </ListItem>
-                </List>
-            </Popover> 
-            <SwipeableDrawer
-                anchor="left"
-                open={state.isOpen}
-                onClose={toggleDrawer(false)}
-                onOpen={toggleDrawer(true)}
-            >
-                <List>
-                    <ListItem>
-                        Hey there's supposed to be something here
-                    </ListItem>
-                </List>
-            </SwipeableDrawer>     
+            <NotificationsPopover 
+                open={open} 
+                anchorEl={anchorEl} 
+                handleClose={handleClose}/>
+            <DrawerList 
+                isOpen={state.isOpen} 
+                toggleDrawer={toggleDrawer}/>      
             </Toolbar>  
         </AppBar>  
         </div>

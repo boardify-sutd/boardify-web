@@ -1,13 +1,16 @@
-import React from 'react'
-import { List, ListItem, SwipeableDrawer } from '@material-ui/core'
+import React, { useState } from 'react'
+import { List, SwipeableDrawer, ListItem } from '@material-ui/core'
+import { PropTypes } from 'prop-types'
 
-function DrawerList() {
+function DrawerList(props) {
+    const isOpen = props.isOpen;
+
     return (
         <SwipeableDrawer
             anchor="right"
-            open={state.isOpen}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
+            open={isOpen}
+            onClose={props.toggleDrawer(false)}
+            onOpen={props.toggleDrawer(true)}
         >
             <List>
                 <ListItem>
@@ -17,5 +20,7 @@ function DrawerList() {
         </SwipeableDrawer>   
     )
 }
+
+
 
 export default DrawerList;

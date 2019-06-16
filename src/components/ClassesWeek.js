@@ -12,7 +12,9 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContent: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center'
     },
     toolbar: theme.mixins.toolbar
 }))
