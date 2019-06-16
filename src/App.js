@@ -9,9 +9,12 @@ import Modules from './components/Modules'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import BoardCard from './components/BoardCard';
 
+
 /*
 TODO: Fix card media in ClassesWeek, Classes and Modules
 */
+
+
 
 function App() {
   return (
