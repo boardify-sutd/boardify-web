@@ -4,7 +4,6 @@ import StarOutlined from '@material-ui/icons/StarOutlined'
 import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined'
 import CommentOutlined from '@material-ui/icons/CommentOutlined'
 import { makeStyles } from '@material-ui/styles';
-import Lake from './media/At the lake.jpg'
 
 /* This is for when you click on the board.*/
 const useStyles = makeStyles((theme) => ({
@@ -18,37 +17,41 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function BoardCard(props) {
+function BoardDialog(props) {
     const classes = useStyles()
 
     return (
         <Dialog 
             onClose={props.handleClose} 
-            open={props.open}>
+            open={props.open}
+            className={classes.dialog}>
 
             <Card>
                 <CardHeader 
-                    action={
-                        <IconButton>
-                            <StarOutlined />
-                        </IconButton>
-                    }
+                    title={props.card.title}
                 />
                 <CardMedia
                     className={classes.cardMedia}
-                    image={Lake}
+                    image={props.card.url}
                 />
                 <CardActions>
                     <IconButton>
                         <FavoriteOutlined/>
                     </IconButton>
                     <IconButton>
+                        <StarOutlined />
+                    </IconButton>
+                    <IconButton>
                         <CommentOutlined />
                     </IconButton>
                 </CardActions>
+
+                <CardContent>
+                    {props.card.description}
+                </CardContent>
             </Card>
         </Dialog>
     )
 }
 
-export default BoardCard;
+export default BoardDialog;

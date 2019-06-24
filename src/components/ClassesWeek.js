@@ -1,46 +1,65 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Appbar from './Appbar';
-import { makeStyles, Typography, Grid, Card, CardMedia, CardContent, IconButton, Breadcrumbs, List, ListItem, Popover } from '@material-ui/core';
+import { makeStyles, Container, Typography, Grid, Card, CardMedia, CardContent, IconButton, Breadcrumbs, List, ListItem, Popover } from '@material-ui/core';
 import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
-import Lake from './media/At the lake.jpg'
+import BoardSmallCard from './BoardSmallCard'
+import BoardDialog from './BoardDialog'
 
 const useStyles = makeStyles((theme) => ({
-    classGrid: {
-        position: 'relative',
-        alignContent: 'center'
+    cardGrid: {
+        paddingTop: theme.spacing(8),
+        paddingBottom: theme.spacing(4)
     },
-    cardContent: {
+    header: {
+        display: "inline-flex",
+        marginBottom: theme.spacing(2)
+    },
+    breadcrumb: {
+        display: "inline-flex"
+    },
+    mainContent: {
         display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
+        flexDirection:'column'
     },
     toolbar: theme.mixins.toolbar
 }))
 
-function ClassesWeek() {
-    const classes = useStyles()
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl)
+/* Change breadcrumb link color to gray*/
 
-    function handleClick(event) {
-        setAnchorEl(event.currentTarget);
+function ClassesWeek(props) {
+    const classes = useStyles()
+    const [open, setOpen] = React.useState(false);
+    const [card, setCard] = React.useState('');
+    const [boards, setBoards] = React.useState([]);
+
+    function handleClickOpen(event, card) {
+        console.log(card);
+        setCard(card);
+        setOpen(true);
     }
-    
-      function handleClose() {
-        setAnchorEl(null);
-    }
+
+    function handleClose() {
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        fetch('http://boardify.ml/module/1')
+            .then(response => response.json())
+            .then(data => {
+              setBoards(data.boards);
+            });           
+    });
 
     return (
-        <div>
+        <div className={classes.mainContent}>
             <Appbar />
 
             {/*This div is to move content below appbar */}
             <div className={classes.toolbar} />
 
             {/*Inside One Week*/ }
-            <Breadcrumbs separator="›" aria-label="Breadcrumb">
+            <Breadcrumbs separator="›" aria-label="Breadcrumb" className={classes.breadcrumb}>
                 <Link color="inherit" to="/home" >
                     Home
                 </Link>
@@ -48,99 +67,27 @@ function ClassesWeek() {
                     My Modules
                 </Link>
                 <Link color="inherit" to="/myclasses" >
-                    Physics
+                    {props.location.state.modName}
                 </Link>
-                <Typography color="textPrimary">Week 1</Typography>
+                <Typography color="textPrimary">
+                    {props.location.state.className}
+                </Typography>
             </Breadcrumbs>
-            <div>
-                <Grid container spacing="3" className={classes.classGrid}>
-                    <Grid item xs={12}> 
-                        <Typography variant="h2">Week 1</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Card>
-                            <CardContent className={classes.cardContent}>
-                                <CardMedia
-                                    image="./media/At the lake.jpg"
-                                />
-                                <Typography variant="body2" component="p">
-                                    Card meta data
-                                </Typography>
-                                <IconButton onClick={handleClick}>
-                                    <MoreVertRounded />
-                                </IconButton>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item>
-                        <Card>
-                            <CardContent className={classes.cardContent}>
-                                <CardMedia
-                                    image="./media/At the lake.jpg"
-                                />
-                                <Typography variant="body2" component="p">
-                                    Card meta data
-                                </Typography>
-                                <IconButton onClick={handleClick}>
-                                    <MoreVertRounded />
-                                </IconButton>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item>
-                        <Card>
-                            <CardContent className={classes.cardContent}>
-                                <CardMedia
-                                    image="./media/At the lake.jpg"
-                                />
-                                <Typography variant="body2" component="p">
-                                    Card meta data
-                                </Typography>
-                                <IconButton onClick={handleClick}>
-                                    <MoreVertRounded />
-                                </IconButton>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item>
-                        <Card>
-                            <CardContent className={classes.cardContent}>
-                                <CardMedia
-                                    image="./media/At the lake.jpg"
-                                />
-                                <Typography variant="body2" component="p">
-                                    Card meta data
-                                </Typography>
-                                <IconButton onClick={handleClick}>
-                                    <MoreVertRounded />
-                                </IconButton>
-                            </CardContent>
-                        </Card>
-                    </Grid>
+            
+            <Container className={classes.cardGrid} maxWidth="lg">
+                <div className={classes.header}>
+                    <Typography variant="h5" color="primary">
+                        Week 1
+                    </Typography>
+                </div>
+                <Grid container spacing={3}>
+                    {boards.map(card => (
+                        <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
+                    ))}
                 </Grid>
-            </div>
-            <Popover 
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'center',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'center',
-                    horizontal: 'left',
-                }}
-                >
-                <List component="nav">
-                    <ListItem>
-                        Download
-                    </ListItem>
-                    <ListItem>
-                        Save to favourites
-                    </ListItem>
-                </List>
-            </Popover>
+            </Container>
+
+            <BoardDialog open={open} handleClose={handleClose} card={card}/>
         </div>
     )
 

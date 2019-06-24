@@ -17,11 +17,20 @@ import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Folder from "@material-ui/icons/Folder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import BoardCard from './BoardCard';
-import ClassModuleCard from './ClassModuleCard'
+import BoardDialog from './BoardDialog';
+import BoardSmallCard from './BoardSmallCard';
+import ModuleCard from './ModuleCard'
+import NavigationMenu from "./NavigationMenu";
 
 const useStyles = makeStyles(theme => ({
-  main: {},
+  main: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  mainContent: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
   toolbar: theme.mixins.toolbar,
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -43,18 +52,23 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     marginLeft: theme.spacing(2)
+  },
+  navmenu: {
+    paddingTop: theme.spacing(8) 
   }
 }));
 
 const mods = ["Physics", "Math", "HASS", "Biology"];
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 function Homepage() {   
     const classes = useStyles()
 
     const [open, setOpen] = React.useState(false);
+    const [card, setCard] = React.useState('');
     const [boards, setBoards] = React.useState([]);
 
-    function handleClickOpen() {
+    function handleClickOpen(event, card) {
+        console.log(card);
+        setCard(card);
         setOpen(true);
     }
 
@@ -65,143 +79,88 @@ function Homepage() {
     useEffect(() => {
         fetch('http://boardify.ml/module/1')
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => {
+              setBoards(data.boards);
+            });           
     });
 
     return (
 
-    <div className={classes.main}>
+    <div>
       <Appbar />
-      {/*Classes grid*/}
-      <Container className={classes.cardGrid} maxWidth="lg">
-        <div className={classes.header}>
-          <Typography variant="h4" color="primary">
-            My Modules
-          </Typography>
-          <Button
-            variant="outlined"
-            color="secondary"
-            className={classes.button}
-            href="/mymodules"
-          >
-            See all
-          </Button>
-        </div>
-        <Grid container spacing={3}>
-          {mods.map(card => (
-            <Grid item key={card} xs={12} sm={6} md={4} lg={3}>
-              <Card className={classes.card}>
-                <CardHeader
-                  avatar={
-                    <Avatar className={classes.avatar}>
-                      <Folder />
-                    </Avatar>
-                  }
-                  action={
-                    <IconButton aria-label="More options">
-                      <MoreVertRounded />
-                    </IconButton>
-                  }
-                  title={card}
-                  subheader="15 boards"
-                />
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+      <div className={classes.main}>
+        <NavigationMenu className={classes.navmenu} />
 
-      {/*Recently viewed grid*/}
-      <Container className={classes.cardGrid} maxWidth="lg">
-        <div className={classes.header}>
-          <Typography variant="h4" color="primary">
-            Recently Viewed
-          </Typography>
-          <Button
-            variant="outlined"
-            color="secondary"
-            className={classes.button}
-            href="/mymodules"
-          >
-            See all
-          </Button>
-        </div>
-        <Grid container spacing={4}>
-          {cards.map(card => (
-            <Grid item key={card} xs={12} sm={6} md={4} lg={3}>
-              <Card className={classes.card}>
-                <CardActionArea onClick={handleClickOpen}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardHeader
-                    avatar={
-                      <Avatar className={classes.avatar}>
-                        <FavoriteIcon />
-                      </Avatar>
-                    }
-                    action={
-                      <IconButton aria-label="More Options">
-                        <MoreVertRounded />
-                      </IconButton>
-                    }
-                    title={card}
-                    subheader="17:58"
-                  />
-                </CardActionArea>
-              </Card>
+        <div className={classes.mainContent}>
+          {/*Classes grid*/}
+          <Container className={classes.cardGrid} maxWidth="lg">
+            <div className={classes.header}>
+              <Typography variant="h4" color="primary">
+                My Modules
+              </Typography>
+              <Button
+                variant="outlined"
+                color="secondary"
+                className={classes.button}
+                href="/mymodules"
+              >
+                See all
+              </Button>
+            </div>
+            <Grid container spacing={3}>
+              {mods.map(mod => (
+                  <ModuleCard modName={mod}/>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      </Container>
+          </Container>
 
-      {/*Favourites grid*/}
-      <Container className={classes.cardGrid} maxWidth="lg">
-        <div className={classes.header}>
-          <Typography variant="h4" color="primary">
-            Favourites
-          </Typography>
-          <Button
-            variant="outlined"
-            color="secondary"
-            className={classes.button}
-            href="/mymodules"
-          >
-            See all
-          </Button>
-        </div>
-        <Grid container spacing={4}>
-          {cards.map(card => (
-            <Grid item key={card} xs={12} sm={6} md={4} lg={3}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image="https://source.unsplash.com/random"
-                  title="Image title"
-                />
-                <CardHeader
-                  avatar={
-                    <Avatar className={classes.avatar}>
-                      <FavoriteIcon />
-                    </Avatar>
-                  }
-                  action={
-                    <IconButton aria-label="Settings">
-                      <MoreVertRounded />
-                    </IconButton>
-                  }
-                  title={card}
-                  subheader="June 16 2019"
-                />
-              </Card>
+          {/*Recently viewed grid*/}
+          <Container className={classes.cardGrid} maxWidth="lg">
+            <div className={classes.header}>
+              <Typography variant="h4" color="primary">
+                Recently Viewed
+              </Typography>
+              <Button
+                variant="outlined"
+                color="secondary"
+                className={classes.button}
+                href="/week1"
+              >
+                See all
+              </Button>
+            </div>
+            <Grid container spacing={4}>
+              {boards.map(card => (
+                <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      </Container>
+          </Container>
 
-      <BoardCard open={open} handleClose={handleClose}/>
+          {/*Favourites grid*/}
+          <Container className={classes.cardGrid} maxWidth="lg">
+            <div className={classes.header}>
+              <Typography variant="h4" color="primary">
+                Favourites
+              </Typography>
+              <Button
+                variant="outlined"
+                color="secondary"
+                className={classes.button}
+                href="/week1"
+              >
+                See all
+              </Button>
+            </div>
+            <Grid container spacing={4}>
+              {boards.map(card => 
+                <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
+              )}
+            </Grid>
+          </Container>
+
+          <BoardDialog open={open} handleClose={handleClose} card={card}/>
+        </div>
+      </div>
     </div>
   );
 }

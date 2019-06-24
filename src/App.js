@@ -7,16 +7,10 @@ import Classes from './components/Classes'
 import ClassesWeek from './components/ClassesWeek';
 import Modules from './components/Modules'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import BoardCard from './components/BoardCard';
 
 
-/*
-TODO: Fix card media in ClassesWeek, Classes and Modules
-*/
+function App(props) {
 
-
-
-function App() {
   return (
     <BrowserRouter>
       <div className="App">
@@ -34,7 +28,7 @@ function App() {
           <Route path="/mymodules" component={Modules}/>
 
           {/*Classes page*/}
-          <Route path="/myclasses" component={Classes}/>
+          <Route path="/myclasses" component={Classes} />
 
           {/*ClassesWeek page, need to render it dynamically*/}
           <Route path="/week1" component={ClassesWeek}/>

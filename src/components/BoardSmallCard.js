@@ -1,7 +1,24 @@
-import React from 'react'
-import { Grid, Card, CardContent, CardMedia, Typography, IconButton, CardAcCardActionArea } from '@material-ui/core'
-import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
-import Lake from './media/At the lake.jpg'
+import React, {useEffect} from "react";
+import Appbar from "./Appbar";
+import {
+  makeStyles,
+  Typography,
+  Grid,
+  Card,
+  CardMedia,
+  CardHeader,
+  CardActions,
+  CardActionArea,
+  IconButton
+} from "@material-ui/core";
+import MoreVertRounded from "@material-ui/icons/MoreVertRounded";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import Avatar from "@material-ui/core/Avatar";
+import Folder from "@material-ui/icons/Folder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import MoreOptionsPopover from './MoreOptionsPopover'
+
 
 /* This shows up as a small preview. */
 
@@ -18,27 +35,52 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function BoardSmallCard() {
+function BoardSmallCard(props) {
     const classes = useStyles()
+    const [card, setCard] = React.useState('')
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl)
+
+    function handleClickOptions(event) {
+        setAnchorEl(event.currentTarget);
+    }
+    
+      function handleClose() {
+        setAnchorEl(null);
+    }
+
+    useEffect(() => {
+        setCard(props.card);
+    })
+
     return (
-        <Grid item xs = {3}>
-            <Card>
-                <CardActionArea>
+        <Grid item key={props.id} xs={12} sm={6} md={4} lg={3}>
+            <Card className={classes.card}>
+                <CardActionArea onClick={event => props.handleClickOpen(event, props.card)}>
                     <CardMedia
-                        image={Lake}
-                        className={classes.cardMedia}
+                    className={classes.cardMedia}
+                    image={props.url}
+                    title={props.title}
                     />
-                    <CardContent className={classes.cardContent}>
-                        <Typography variant="body2" component="p">
-                            Card meta data
-                        </Typography>
-                        <IconButton>
+                </CardActionArea>
+                    <CardHeader
+                    avatar={
+                        <Avatar className={classes.avatar}>
+                        <FavoriteIcon />
+                        </Avatar>
+                    }
+                    action={
+                        <IconButton aria-label="More Options" onClick={handleClickOptions}>
                             <MoreVertRounded />
                         </IconButton>
-                    </CardContent>
-                </CardActionArea>
+                    }
+                    title={props.title}
+                    subheader="17:58"
+                    />
             </Card>
+            <MoreOptionsPopover open={open} anchorEl={anchorEl} handleClose={handleClose}/>
         </Grid>
+
     )   
 }
 
