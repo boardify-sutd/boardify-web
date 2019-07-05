@@ -26,7 +26,7 @@ function ClassCard(props) {
             <Card className={classes.card}>
                 <CardActionArea>
                     <Link to={{
-                        pathname: '/week1',
+                        pathname: '/weeks',
                         state: {
                             modName: props.modName,
                             className: props.className

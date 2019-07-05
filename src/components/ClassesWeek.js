@@ -66,7 +66,12 @@ function ClassesWeek(props) {
                 <Link color="inherit" to="/mymodules" >
                     My Modules
                 </Link>
-                <Link color="inherit" to="/myclasses" >
+                <Link color="inherit" to={{
+                        pathname: '/myclasses',
+                        state: {
+                            modName: props.location.state.modName,
+                            className: props.location.state.className
+                        }}} >
                     {props.location.state.modName}
                 </Link>
                 <Typography color="textPrimary">
@@ -75,11 +80,6 @@ function ClassesWeek(props) {
             </Breadcrumbs>
             
             <Container className={classes.cardGrid} maxWidth="lg">
-                <div className={classes.header}>
-                    <Typography variant="h5" color="primary">
-                        Week 1
-                    </Typography>
-                </div>
                 <Grid container spacing={3}>
                     {boards.map(card => (
                         <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />

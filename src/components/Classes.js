@@ -38,7 +38,7 @@ function Classes(props) {
                 <Link color="inherit" to="/home" >
                     Home
                 </Link>
-                <Link color="inherit" to="/mymodules" >
+                <Link color="inherit" to='/mymodules' >
                     My Modules
                 </Link>
                 <Typography color="textPrimary">

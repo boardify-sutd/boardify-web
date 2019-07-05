@@ -58,13 +58,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const mods = ["Physics", "Math", "HASS", "Biology"];
+//TODO: find a way to retrieve user's mods and sort by term
+const mods = ['Mathematics', 'Information Systems and Programming', 'Computational Structures', 'Introduction to Algorithms', 
+'Humanities and Social Sciences', 'Biology'];
 function Homepage() {   
     const classes = useStyles()
 
     const [open, setOpen] = React.useState(false);
     const [card, setCard] = React.useState('');
     const [boards, setBoards] = React.useState([]);
+    const [favourites, setFavourites] = React.useState([]);
+    const [recents, setRecents] = React.useState([]);
 
     function handleClickOpen(event, card) {
         console.log(card);
@@ -77,10 +81,14 @@ function Homepage() {
     };
 
     useEffect(() => {
-        fetch('http://boardify.ml/module/1')
+        fetch('http://boardify.ml/module/0')
             .then(response => response.json())
             .then(data => {
-              setBoards(data.boards);
+              if (data.boards.length > 8) {
+                setBoards(data.boards.slice(0, 8));
+                setFavourites(data.boards.slice(0, 8));
+                setRecents(data.boards.slice(0, 8))
+              }
             });           
     });
 
@@ -124,13 +132,13 @@ function Homepage() {
                 variant="outlined"
                 color="secondary"
                 className={classes.button}
-                href="/week1"
+                href="/weeks"
               >
                 See all
               </Button>
             </div>
             <Grid container spacing={4}>
-              {boards.map(card => (
+              {recents.map(card => (
                 <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
               ))}
             </Grid>
@@ -146,13 +154,13 @@ function Homepage() {
                 variant="outlined"
                 color="secondary"
                 className={classes.button}
-                href="/week1"
+                href="/weeks"
               >
                 See all
               </Button>
             </div>
             <Grid container spacing={4}>
-              {boards.map(card => 
+              {favourites.map(card => 
                 <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
               )}
             </Grid>

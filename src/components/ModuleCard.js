@@ -51,13 +51,6 @@ function ModuleCard(props) {
                     </Link>
                 </CardActionArea>
             </Card>
-
-            <Route
-                path="/myclasses"
-                render={(routeProps) => (
-                    <Classes {...routeProps} modName={props.modName} />
-            )}
-            />
         </Grid>
     )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Appbar from './Appbar';
 import { 
     makeStyles, 
@@ -10,7 +10,6 @@ import {
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
-import Lake from './media/At the lake.jpg'
 import ModuleCard from './ModuleCard'
 import Classes from './Classes'
 
@@ -42,8 +41,10 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar
 }))
 
-const mods = ['Physics', 'HASS', 'Math', 'Biology'];
+//TODO: find a way to retrieve user's mods and sort by term
+const mods = ['Mathematics', 'Information Systems and Programming', 'Computational Structures', 'Introduction to Algorithms', 'Humanities and Social Sciences', 'Biology'];
 function Modules() {
+
     const classes = useStyles()
     return (
         <div className={classes.main}>

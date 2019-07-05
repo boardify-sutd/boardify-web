@@ -28,16 +28,16 @@ function App(props) {
           <Route path="/mymodules" component={Modules}/>
 
           {/*Classes page*/}
-          <Route path="/myclasses" component={Classes} />
+          <Route path="/myclasses" component={Classes} /> 
 
           {/*ClassesWeek page, need to render it dynamically*/}
-          <Route path="/week1" component={ClassesWeek}/>
+          <Route path="/weeks" component={ClassesWeek}/>
 
           {/*Recently viewed page*/}
           <Route path="/recent" component={Classes}/>
 
           {/*Favourites page*/}
-          <Route path="/favourites" component={ClassesWeek}/>
+          <Route path="/favourites" component={Classes}/>
 
         </Switch>
       </div>
