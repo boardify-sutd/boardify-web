@@ -1,25 +1,50 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Appbar from './Appbar';
-import { makeStyles, Typography, Grid, Card, CardMedia, CardContent, CardActions, IconButton, Breadcrumbs } from '@material-ui/core';
+import { 
+    makeStyles, 
+    Typography, 
+    Grid, 
+    Container, 
+    Button, 
+    Breadcrumbs } from '@material-ui/core';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
-import Lake from './media/At the lake.jpg'
+import ModuleCard from './ModuleCard'
+import Classes from './Classes'
 
 const useStyles = makeStyles((theme) => ({
     main: {
         
     },
-    classGrid: {
-        position: 'relative',
+    breadcrumb: {
+
+    },
+    header: {
+        display: "inline-flex",
+        marginBottom: theme.spacing(2)
+    },
+    button: {
+        marginLeft: theme.spacing(2)
+    },
+    cardGrid: {
+        paddingTop: theme.spacing(8),
+        paddingBottom: theme.spacing(4)
     },
     cardContent: {
-        display: 'flex',
-        flexDirection: 'row'
+        flexGrow: 1
+    },
+    cardMedia: {
+        height: 0,
+        paddingTop: "56%"
     },
     toolbar: theme.mixins.toolbar
 }))
 
+//TODO: find a way to retrieve user's mods and sort by term
+const mods = ['Mathematics', 'Information Systems and Programming', 'Computational Structures', 'Introduction to Algorithms', 'Humanities and Social Sciences', 'Biology'];
 function Modules() {
+
     const classes = useStyles()
     return (
         <div className={classes.main}>
@@ -28,67 +53,27 @@ function Modules() {
             {/*This div is to move content below appbar */}
             <div className={classes.toolbar} />
 
-            <Breadcrumbs separator="›" aria-label="Breadcrumb">
+            <Breadcrumbs className={classes.breadcrumb} separator="›" aria-label="Breadcrumb">
                 <Link color="inherit" to="/home" >
                     Home
                 </Link>
                 <Typography color="textPrimary">My Modules</Typography>
             </Breadcrumbs>
+
             {/*One week grid*/ }
             <div>
-                <Grid container spacing="3" className={classes.classGrid}>
-                    <Grid item > 
-                        <Typography> Term 1 > </Typography>
+                <Container className={classes.cardGrid} maxWidth="lg">
+                    <div className={classes.header}>
+                        <Typography variant="h4" color="primary">
+                            My Modules
+                        </Typography>
+                    </div>
+                    <Grid container spacing={3}>
+                        {mods.map(mod => (
+                            <ModuleCard modName={mod}/>
+                        ))}
                     </Grid>
-                    <Grid item>
-                        <Card>
-                            <CardContent className={classes.cardContent}>
-                                <CardMedia
-                                    image="./media/At the lake.jpg"
-                                />
-                                <Typography variant="body2" component="p">
-                                    Physics
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item>
-                        <Card>
-                            <CardContent className={classes.cardContent}>
-                                <CardMedia
-                                    image="./media/At the lake.jpg"
-                                />
-                                <Typography variant="body2" component="p">
-                                    Maths
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item>
-                        <Card>
-                            <CardContent className={classes.cardContent}>
-                                <CardMedia
-                                    image="./media/At the lake.jpg"
-                                />
-                                <Typography variant="body2" component="p">
-                                    HASS
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item>
-                        <Card>
-                            <CardContent className={classes.cardContent}>
-                                <CardMedia
-                                    image="./media/At the lake.jpg"
-                                />
-                                <Typography variant="body2" component="p">
-                                    Bio-Chem
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                </Grid>
+                </Container>
             </div>
         </div>
     )

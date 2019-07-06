@@ -11,9 +11,9 @@ import Avatar from '@material-ui/core/Avatar'
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Boardify from './media/Boardify.png'
 import Lake from './media/At the lake.jpg'
-import DrawerList from './DrawerList';
 import NotificationsPopover from './NotificationsPopover';
 import { Typography } from '@material-ui/core';
+import AvatarPopover from './AvatarPopover';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -79,42 +79,37 @@ const useStyles = makeStyles(theme => ({
 
 function Appbar() {
     const classes = useStyles()
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorNotif, setAnchorNotif] = React.useState(null);
+    const [anchorAvatar, setAnchorAvatar] = React.useState(null);
     const [state, setState] = React.useState({
         isOpen: false,
     });
 
-    function handleClick(event) {
-      setAnchorEl(event.currentTarget);
+    function handleClickNotif(event) {
+      setAnchorNotif(event.currentTarget);
     }
   
-    function handleClose() {
-      setAnchorEl(null);
+    function handleCloseNotif() {
+      setAnchorNotif(null);
     }
+  
+    const openNotif = Boolean(anchorNotif);
 
-    const toggleDrawer = (open) => event => {
-        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-          return;
-        }
-        
-        setState({...state, isOpen: open });
-    };
-  
-    const open = Boolean(anchorEl);
+    
+    function handleClickAvatar(event) {
+        setAnchorAvatar(event.currentTarget);
+      }
+    
+      function handleCloseAvatar() {
+        setAnchorAvatar(null);
+      }
+    
+      const openAvatar = Boolean(anchorAvatar);
 
     return (
         <div className={classes.grow}>
         <AppBar position="static">
         <Toolbar>
-        <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={toggleDrawer(true)}
-          >
-            <MenuIcon />
-            </IconButton>
             <Typography variant="h6" className={classes.title}>Boardify</Typography>
             <div className={classes.search}>
             <div className={classes.searchIcon}><SearchIcon/></div>
@@ -128,7 +123,7 @@ function Appbar() {
             </div>
             <div className={classes.grow}/>
             <div className={classes.sectionDesktop}>
-                <IconButton color="inherit" onClick={handleClick}>
+                <IconButton color="inherit" onClick={handleClickNotif}>
                     <Badge badgeContent={1} color="secondary">
                         <NotificationsIcon/>
                     </Badge>
@@ -136,18 +131,20 @@ function Appbar() {
                 <IconButton color="inherit" >
                     <Settings/>
                 </IconButton>
-                <IconButton color="inherit">
+                <IconButton color="inherit" onClick={handleClickAvatar}>
                     <Avatar src={Lake}></Avatar>    
                 </IconButton>  
             </div>      
             
             <NotificationsPopover 
-                open={open} 
-                anchorEl={anchorEl} 
-                handleClose={handleClose}/>
-            <DrawerList 
-                isOpen={state.isOpen} 
-                toggleDrawer={toggleDrawer}/>      
+                open={openNotif} 
+                anchorEl={anchorNotif} 
+                handleClose={handleCloseNotif}/>  
+            <AvatarPopover
+                open={openAvatar} 
+                anchorEl={anchorAvatar} 
+                handleClose={handleCloseAvatar}
+            />
             </Toolbar>  
         </AppBar>  
         </div>
