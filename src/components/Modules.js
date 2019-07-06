@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Appbar from './Appbar';
 import { 
     makeStyles, 
     Typography, 
@@ -48,7 +47,6 @@ function Modules() {
     const classes = useStyles()
     return (
         <div className={classes.main}>
-            <Appbar />
 
             {/*This div is to move content below appbar */}
             <div className={classes.toolbar} />

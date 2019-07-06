@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import Appbar from './Appbar';
 import { makeStyles, Container, Typography, Grid, Card, CardMedia, CardContent, IconButton, Breadcrumbs, List, ListItem, Popover } from '@material-ui/core';
 import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
@@ -53,7 +52,6 @@ function ClassesWeek(props) {
 
     return (
         <div className={classes.mainContent}>
-            <Appbar />
 
             {/*This div is to move content below appbar */}
             <div className={classes.toolbar} />

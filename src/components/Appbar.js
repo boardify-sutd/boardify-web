@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar'
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import MenuIcon from '@material-ui/icons/Menu';
 import { InputBase, Badge, ListItem, Toolbar, List, Divider, ListItemIcon, ListItemText } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Settings from '@material-ui/icons/Settings'
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '@material-ui/core/Avatar'
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import Boardify from './media/Boardify.png'
 import Lake from './media/At the lake.jpg'
 import NotificationsPopover from './NotificationsPopover';
 import { Typography } from '@material-ui/core';
@@ -207,6 +205,9 @@ function Appbar() {
                 </ListItem>
         </List>
       </Drawer>
+
+      {/* Put contents of page here ? */}
+
         </div>
     )
 }

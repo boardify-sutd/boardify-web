@@ -25,7 +25,7 @@ import NavigationMenu from "./NavigationMenu";
 const useStyles = makeStyles(theme => ({
   main: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   mainContent: {
     display: 'flex',
@@ -95,7 +95,6 @@ function Homepage() {
     return (
 
     <div>
-      <Appbar />
 
       <div className={classes.main}>
         <div className={classes.mainContent}>
