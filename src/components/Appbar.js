@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar'
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import MenuIcon from '@material-ui/icons/Menu';
-import { InputBase, Badge, ListItem, Toolbar } from '@material-ui/core';
+import { InputBase, Badge, ListItem, Toolbar, List, Divider, ListItemIcon, ListItemText } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Settings from '@material-ui/icons/Settings'
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -14,8 +15,21 @@ import Lake from './media/At the lake.jpg'
 import NotificationsPopover from './NotificationsPopover';
 import { Typography } from '@material-ui/core';
 import AvatarPopover from './AvatarPopover';
+import Drawer from '@material-ui/core/Drawer';
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import HomeSharp from '@material-ui/icons/HomeSharp';
+import Book from '@material-ui/icons/Book';
+import ViewCompact from '@material-ui/icons/ViewCompact';
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+      },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+      },
     grow: {
         flexGrow: 1,
     },
@@ -75,6 +89,18 @@ const useStyles = makeStyles(theme => ({
     //     height: 'auto', 
     //     width: 'auto'
     // },
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+      },
+      drawerPaper: {
+        width: drawerWidth,
+      },
+      content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+      },
+      toolbar: theme.mixins.toolbar,
 }));
 
 function Appbar() {
@@ -107,8 +133,8 @@ function Appbar() {
       const openAvatar = Boolean(anchorAvatar);
 
     return (
-        <div className={classes.grow}>
-        <AppBar position="static">
+        <div className={classes.root}>
+        <AppBar position="static" className={classes.appBar}>
         <Toolbar>
             <Typography variant="h6" className={classes.title}>Boardify</Typography>
             <div className={classes.search}>
@@ -145,8 +171,42 @@ function Appbar() {
                 anchorEl={anchorAvatar} 
                 handleClose={handleCloseAvatar}
             />
+
+            
             </Toolbar>  
         </AppBar>  
+ 
+        <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.toolbar} />
+        <List>
+
+            <ListItem button component={Link} to="/home">
+                    <ListItemIcon><HomeSharp/></ListItemIcon>
+                    <ListItemText primary="Home" />
+                </ListItem>
+            
+                <ListItem button component={Link} to="/mymodules">
+                <ListItemIcon><Book/></ListItemIcon>
+                <ListItemText primary="My Modules" />
+                </ListItem>
+            
+                <ListItem button component={Link} to="/weeks">
+                    <ListItemIcon><ViewCompact/></ListItemIcon>
+                    <ListItemText primary="Recently Viewed" />
+                </ListItem>
+            
+                <ListItem button component={Link} to="/weeks">
+                    <ListItemIcon><FavoriteIcon/></ListItemIcon>
+                    <ListItemText primary="Favourites" />
+                </ListItem>
+        </List>
+      </Drawer>
         </div>
     )
 }

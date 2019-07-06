@@ -96,9 +96,8 @@ function Homepage() {
 
     <div>
       <Appbar />
-      <div className={classes.main}>
-        <NavigationMenu className={classes.navmenu} />
 
+      <div className={classes.main}>
         <div className={classes.mainContent}>
           {/*Classes grid*/}
           <Container className={classes.cardGrid} maxWidth="lg">
