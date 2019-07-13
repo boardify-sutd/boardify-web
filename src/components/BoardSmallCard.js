@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, Suspense} from "react";
 import Appbar from "./Appbar";
 import {
   makeStyles,
@@ -17,7 +17,7 @@ import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Folder from "@material-ui/icons/Folder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import MoreOptionsPopover from './MoreOptionsPopover'
+import MoreOptionsPopover from './MoreOptionsPopover';
 
 
 /* This shows up as a small preview. */
@@ -57,11 +57,13 @@ function BoardSmallCard(props) {
         <Grid item key={props.id} xs={12} sm={6} md={4} lg={3}>
             <Card className={classes.card}>
                 <CardActionArea onClick={event => props.handleClickOpen(event, props.card)}>
-                    <CardMedia
-                    className={classes.cardMedia}
-                    image={props.url}
-                    title={props.title}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <CardMedia
+                        className={classes.cardMedia}
+                        image={props.url}
+                        title={props.title}
+                        />
+                    </Suspense>
                 </CardActionArea>
                     <CardHeader
                     avatar={

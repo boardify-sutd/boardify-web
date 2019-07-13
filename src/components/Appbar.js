@@ -189,17 +189,30 @@ function Appbar() {
                     <ListItemText primary="Home" />
                 </ListItem>
             
-                <ListItem button component={Link} to="/mymodules">
+                <ListItem button component={Link} 
+                to={{
+                  pathname: "/mymodules",
+                  state: {
+                    name: 'My Modules'
+                  }
+                }}>
                 <ListItemIcon><Book/></ListItemIcon>
                 <ListItemText primary="My Modules" />
                 </ListItem>
             
-                <ListItem button component={Link} to="/weeks">
+                <ListItem button component={Link} 
+                to="/weeks">
                     <ListItemIcon><ViewCompact/></ListItemIcon>
                     <ListItemText primary="Recently Viewed" />
                 </ListItem>
             
-                <ListItem button component={Link} to="/weeks">
+                <ListItem button component={Link} 
+                to={{
+                  pathname: "/mymodules",
+                  state: {
+                    name: 'Favourites'
+                  }
+                }}>
                     <ListItemIcon><FavoriteIcon/></ListItemIcon>
                     <ListItemText primary="Favourites" />
                 </ListItem>

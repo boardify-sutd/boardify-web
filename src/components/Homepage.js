@@ -1,26 +1,17 @@
-import React, {useEffect} from "react";
-import Appbar from "./Appbar";
+import React, {useEffect, Suspense, lazy } from "react";
 import {
   makeStyles,
   Typography,
   Grid,
-  Card,
-  CardMedia,
-  CardHeader,
-  CardActions,
-  CardActionArea,
-  IconButton
 } from "@material-ui/core";
-import MoreVertRounded from "@material-ui/icons/MoreVertRounded";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import Avatar from "@material-ui/core/Avatar";
-import Folder from "@material-ui/icons/Folder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import BoardDialog from './BoardDialog';
 import BoardSmallCard from './BoardSmallCard';
 import ModuleCard from './ModuleCard'
-import NavigationMenu from "./NavigationMenu";
+import { Link } from 'react-router-dom';
+
+const LazyBoardCard = lazy(() => import('./BoardSmallCard'))
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -61,13 +52,14 @@ const useStyles = makeStyles(theme => ({
 //TODO: find a way to retrieve user's mods and sort by term
 const mods = ['Mathematics', 'Information Systems and Programming', 'Computational Structures', 'Introduction to Algorithms', 
 'Humanities and Social Sciences', 'Biology'];
+const favemods = ['Biology', 'Mathematics', 'Computational Structures']
 function Homepage() {   
     const classes = useStyles()
 
     const [open, setOpen] = React.useState(false);
     const [card, setCard] = React.useState('');
-    const [boards, setBoards] = React.useState([]);
-    const [favourites, setFavourites] = React.useState([]);
+    // const [boards, setBoards] = React.useState([]);
+    // const [favourites, setFavourites] = React.useState([]);
     const [recents, setRecents] = React.useState([]);
 
     function handleClickOpen(event, card) {
@@ -85,9 +77,13 @@ function Homepage() {
             .then(response => response.json())
             .then(data => {
               if (data.boards.length > 8) {
-                setBoards(data.boards.slice(0, 8));
-                setFavourites(data.boards.slice(0, 8));
-                setRecents(data.boards.slice(0, 8))
+                // setBoards(data.boards.slice(0, 8));
+                // setFavourites(data.boards.slice(0, 8));
+                setRecents(data.boards.slice(0, 8)) //only get the eight most recent
+              } else {
+                // setBoards(data.boards)
+                // setFavourites(data.boards)
+                setRecents(data.boards)
               }
             });           
     });
@@ -107,15 +103,20 @@ function Homepage() {
               <Button
                 variant="outlined"
                 color="secondary"
-                className={classes.button}
-                href="/mymodules"
+				        className={classes.button}
+				        component = {Link}
+                to={{
+                  pathname:"/mymodules", 
+                  state: {
+					          name: 'My Modules'
+                }}}
               >
                 See all
               </Button>
             </div>
             <Grid container spacing={3}>
               {mods.map(mod => (
-                  <ModuleCard modName={mod}/>
+                  <ModuleCard modName={mod} link='/mymodules' name='My Modules' />
               ))}
             </Grid>
           </Container>
@@ -130,14 +131,16 @@ function Homepage() {
                 variant="outlined"
                 color="secondary"
                 className={classes.button}
-                href="/weeks"
+                href="/recent"
               >
                 See all
               </Button>
             </div>
             <Grid container spacing={4}>
               {recents.map(card => (
-                <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
+                <Suspense fallback={<div>Loading...</div>} >
+                  <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
+                </Suspense>
               ))}
             </Grid>
           </Container>
@@ -152,20 +155,26 @@ function Homepage() {
                 variant="outlined"
                 color="secondary"
                 className={classes.button}
-                href="/weeks"
+                component = {Link}
+                to={{
+                  pathname:"/mymodules", 
+                  state: {
+					          name: 'Favourites'
+                }}}
               >
                 See all
               </Button>
             </div>
             <Grid container spacing={4}>
-              {favourites.map(card => 
-                <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
+              {favemods.map(mod => 
+                <ModuleCard modName={mod} link='/mymodules' name='Favourites'/>
               )}
             </Grid>
           </Container>
 
           <BoardDialog open={open} handleClose={handleClose} card={card}/>
         </div>
+        
       </div>
     </div>
   );

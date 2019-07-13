@@ -7,7 +7,7 @@ import BoardDialog from './BoardDialog'
 
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
-        paddingTop: theme.spacing(8),
+        paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(4)
     },
     header: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2)
     },
     breadcrumb: {
-        display: "inline-flex"
+        marginBottom: theme.spacing(2)
     },
     mainContent: {
         display: 'flex',
@@ -55,29 +55,34 @@ function ClassesWeek(props) {
 
             {/*This div is to move content below appbar */}
             <div className={classes.toolbar} />
-
-            {/*Inside One Week*/ }
-            <Breadcrumbs separator="›" aria-label="Breadcrumb" className={classes.breadcrumb}>
-                <Link color="inherit" to="/home" >
-                    Home
-                </Link>
-                <Link color="inherit" to="/mymodules" >
-                    My Modules
-                </Link>
-                <Link color="inherit" to={{
-                        pathname: '/myclasses',
-                        state: {
-                            modName: props.location.state.modName,
-                            className: props.location.state.className
-                        }}} >
-                    {props.location.state.modName}
-                </Link>
-                <Typography color="textPrimary">
-                    {props.location.state.className}
-                </Typography>
-            </Breadcrumbs>
             
             <Container className={classes.cardGrid} maxWidth="lg">
+                <Breadcrumbs className={classes.breadcrumb} separator="›" aria-label="Breadcrumb" className={classes.breadcrumb}>
+                    <Link color="inherit" to="/home" >
+                        Home
+                    </Link>
+                    <Link color="inherit" to={{
+                    pathname: "/mymodules",
+                    state: {
+                        name: props.location.state.name
+                    }
+                    }} >
+                        {props.location.state.name}
+                    </Link>
+                    <Link color="inherit" to={{
+                            pathname: '/myclasses',
+                            state: {
+                                modName: props.location.state.modName,
+                                className: props.location.state.className,
+                                name: props.location.state.name
+                            }}} >
+                        {props.location.state.modName}
+                    </Link>
+                    <Typography color="textPrimary">
+                        {props.location.state.className}
+                    </Typography>
+                </Breadcrumbs>
+
                 <Grid container spacing={3}>
                     {boards.map(card => (
                         <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />

@@ -29,7 +29,9 @@ function ModuleCard(props) {
                     <Link to={{
                         pathname: '/myclasses',
                         state: {
-                            modName: props.modName
+                            modName: props.modName,
+                            link: props.link,
+                            name: props.name
                         }
                     }}
                     className={classes.link}

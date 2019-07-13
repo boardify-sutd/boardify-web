@@ -11,13 +11,14 @@ import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
 import ModuleCard from './ModuleCard'
 import Classes from './Classes'
+import { getThemeProps } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
     main: {
         
     },
     breadcrumb: {
-
+        marginBottom: theme.spacing(2)
     },
     header: {
         display: "inline-flex",
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2)
     },
     cardGrid: {
-        paddingTop: theme.spacing(8),
+        paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(4)
     },
     cardContent: {
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 //TODO: find a way to retrieve user's mods and sort by term
 const mods = ['Mathematics', 'Information Systems and Programming', 'Computational Structures', 'Introduction to Algorithms', 'Humanities and Social Sciences', 'Biology'];
-function Modules() {
+function Modules(props) {
 
     const classes = useStyles()
     return (
@@ -51,24 +52,23 @@ function Modules() {
             {/*This div is to move content below appbar */}
             <div className={classes.toolbar} />
 
-            <Breadcrumbs className={classes.breadcrumb} separator="›" aria-label="Breadcrumb">
-                <Link color="inherit" to="/home" >
-                    Home
-                </Link>
-                <Typography color="textPrimary">My Modules</Typography>
-            </Breadcrumbs>
-
             {/*One week grid*/ }
             <div>
                 <Container className={classes.cardGrid} maxWidth="lg">
+                    <Breadcrumbs className={classes.breadcrumb} separator="›" aria-label="Breadcrumb">
+                        <Link color="inherit" to="/home" >
+                            Home
+                        </Link>
+                        <Typography color="textPrimary">{props.location.state.name}</Typography>
+                    </Breadcrumbs>
                     <div className={classes.header}>
                         <Typography variant="h4" color="primary">
-                            My Modules
+                            {props.location.state.name}
                         </Typography>
                     </div>
                     <Grid container spacing={3}>
                         {mods.map(mod => (
-                            <ModuleCard modName={mod}/>
+                            <ModuleCard modName={mod} link='/mymodules' name={props.location.state.name}/>
                         ))}
                     </Grid>
                 </Container>

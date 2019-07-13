@@ -33,6 +33,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import HomeSharp from "@material-ui/icons/HomeSharp";
 import Book from "@material-ui/icons/Book";
 import ViewCompact from "@material-ui/icons/ViewCompact";
+import RecentlyViewed from "./components/RecentlyViewed";
 
 const drawerWidth = 240;
 
@@ -197,7 +198,13 @@ function App(props) {
               <ListItemText primary="Home" />
             </ListItem>
 
-            <ListItem button component={Link} to="/mymodules">
+            <ListItem button component={Link} 
+            to={{
+              pathname: "/mymodules",
+              state: {
+                name: 'My Modules'
+              }
+            }}>
               <ListItemIcon>
                 <Book />
               </ListItemIcon>
@@ -211,7 +218,13 @@ function App(props) {
               <ListItemText primary="Recently Viewed" />
             </ListItem>
 
-            <ListItem button component={Link} to="/weeks">
+            <ListItem button component={Link} 
+            to={{
+                  pathname: "/mymodules",
+                  state: {
+                    name: 'Favourites'
+                  }
+                }}>
               <ListItemIcon>
                 <FavoriteIcon />
               </ListItemIcon>
@@ -241,7 +254,7 @@ function App(props) {
             <Route path="/weeks" component={ClassesWeek} />
 
             {/*Recently viewed page*/}
-            <Route path="/recent" component={Classes} />
+            <Route path="/recent" component={RecentlyViewed} />
 
             {/*Favourites page*/}
             <Route path="/favourites" component={Classes} />

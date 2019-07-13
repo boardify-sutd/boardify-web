@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
     main: {
         
     },
+    breadcrumb: {
+        marginBottom: theme.spacing(2)
+    },
     header: {
         display: "inline-flex",
         marginBottom: theme.spacing(2)
@@ -16,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2)
     },
     cardGrid: {
-        paddingTop: theme.spacing(8),
+        paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(4)
     },
     toolbar: theme.mixins.toolbar
@@ -31,22 +34,26 @@ function Classes(props) {
 
             {/*This div is to move content below appbar */}
             <div className={classes.toolbar} />
-
-            <Breadcrumbs separator="›" aria-label="Breadcrumb">
-                <Link color="inherit" to="/home" >
-                    Home
-                </Link>
-                <Link color="inherit" to='/mymodules' >
-                    My Modules
-                </Link>
-                <Typography color="textPrimary">
-                    {props.location.state.modName}
-                </Typography>
-            </Breadcrumbs>
+            
             {/*One week grid*/ }
             <div>
-
                 <Container className={classes.cardGrid} maxWidth="lg">
+                    <Breadcrumbs className={classes.breadcrumb} separator="›" aria-label="Breadcrumb">
+                        <Link color="inherit" to="/home" >
+                            Home
+                        </Link>
+                        <Link color="inherit" to={{
+                            pathname: props.location.state.link,
+                            state: {
+                                name: props.location.state.name
+                            }    
+                        }} >
+                            {props.location.state.name}
+                        </Link>
+                        <Typography color="textPrimary">
+                            {props.location.state.modName}
+                        </Typography>
+                    </Breadcrumbs>
                     <div className={classes.header}>
                         <Typography variant="h5" color="primary">
                             Week 1
@@ -57,6 +64,7 @@ function Classes(props) {
                             <ClassCard 
                                 modName={props.location.state.modName} 
                                 className ={classItem}
+                                name={props.location.state.name}
                             />
                         ))}
                     </Grid>

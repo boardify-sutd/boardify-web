@@ -29,7 +29,8 @@ function ClassCard(props) {
                         pathname: '/weeks',
                         state: {
                             modName: props.modName,
-                            className: props.className
+                            className: props.className, 
+                            name: props.name
                         }
                     }}
                     className={classes.link}
