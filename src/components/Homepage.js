@@ -3,6 +3,8 @@ import {
   makeStyles,
   Typography,
   Grid,
+  Card,
+  CardContent,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
@@ -10,6 +12,7 @@ import BoardDialog from './BoardDialog';
 import BoardSmallCard from './BoardSmallCard';
 import ModuleCard from './ModuleCard'
 import { Link } from 'react-router-dom';
+import PlaceholderCard from "./PlaceholderCard";
 
 const LazyBoardCard = lazy(() => import('./BoardSmallCard'))
 
@@ -53,11 +56,13 @@ const useStyles = makeStyles(theme => ({
 const mods = ['Mathematics', 'Information Systems and Programming', 'Computational Structures', 'Introduction to Algorithms', 
 'Humanities and Social Sciences', 'Biology'];
 const favemods = ['Biology', 'Mathematics', 'Computational Structures']
+const placeholderArray = ['0', '1', '2', '3', '4', '5', '6', '7']
 function Homepage() {   
     const classes = useStyles()
 
     const [open, setOpen] = React.useState(false);
     const [card, setCard] = React.useState('');
+    const [ready, setReady] = React.useState(false);
     // const [boards, setBoards] = React.useState([]);
     // const [favourites, setFavourites] = React.useState([]);
     const [recents, setRecents] = React.useState([]);
@@ -85,6 +90,7 @@ function Homepage() {
                 // setFavourites(data.boards)
                 setRecents(data.boards)
               }
+              setReady(true);
             });           
     });
 
@@ -137,11 +143,9 @@ function Homepage() {
               </Button>
             </div>
             <Grid container spacing={4}>
-              {recents.map(card => (
-                <Suspense fallback={<div>Loading...</div>} >
-                  <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
-                </Suspense>
-              ))}
+              {ready ? recents.map(card => (
+                <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} /> 
+              )): placeholderArray.map(place => (<PlaceholderCard />))}
             </Grid>
           </Container>
 
@@ -171,7 +175,6 @@ function Homepage() {
               )}
             </Grid>
           </Container>
-
           <BoardDialog open={open} handleClose={handleClose} card={card}/>
         </div>
         

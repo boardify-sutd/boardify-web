@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function BoardSmallCard(props) {
+function PlaceholderCard(props) {
     const classes = useStyles()
     const [card, setCard] = React.useState('')
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -56,17 +56,16 @@ function BoardSmallCard(props) {
     return (
         <Grid item key={props.id} xs={12} sm={6} md={4} lg={3}>
             <Card className={classes.card}>
-                <CardActionArea onClick={event => props.handleClickOpen(event, props.card)}>
+                <CardActionArea >
                     <CardMedia
                     className={classes.cardMedia}
-                    image={props.url}
-                    title={props.title}
+                    color='#D3D3D3'
                     />
                 </CardActionArea>
                     <CardHeader
                     avatar={
                         <Avatar className={classes.avatar}>
-                        <FavoriteIcon />
+                            <FavoriteIcon />
                         </Avatar>
                     }
                     action={
@@ -84,4 +83,4 @@ function BoardSmallCard(props) {
     )   
 }
 
-export default BoardSmallCard
+export default PlaceholderCard
