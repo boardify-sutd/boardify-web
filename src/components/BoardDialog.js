@@ -4,6 +4,8 @@ import StarOutlined from '@material-ui/icons/StarOutlined'
 import FavoriteOutlined from '@material-ui/icons/FavoriteOutlined'
 import CommentOutlined from '@material-ui/icons/CommentOutlined'
 import { makeStyles } from '@material-ui/styles';
+import MoreVertRounded from "@material-ui/icons/MoreVertRounded";
+import MoreOptionsPopover from './MoreOptionsPopover';
 
 /* This is for when you click on the board.*/
 const useStyles = makeStyles((theme) => ({
@@ -14,11 +16,25 @@ const useStyles = makeStyles((theme) => ({
     cardMedia: {
         height: 0, 
         paddingTop: '56%'
+    },
+    icons: {
+        display: 'flex',
+        justifyContent: 'space-between'
     }
 }))
 
 function BoardDialog(props) {
     const classes = useStyles()
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl)
+
+    function handleClickOptions(event) {
+        setAnchorEl(event.currentTarget);
+    }
+    
+      function handleClose() {
+        setAnchorEl(null);
+    }
 
     return (
         <Dialog 
@@ -34,15 +50,17 @@ function BoardDialog(props) {
                     className={classes.cardMedia}
                     image={props.card.url}
                 />
-                <CardActions>
-                    <IconButton>
-                        <FavoriteOutlined/>
-                    </IconButton>
-                    <IconButton>
-                        <StarOutlined />
-                    </IconButton>
-                    <IconButton>
-                        <CommentOutlined />
+                <CardActions className={classes.icons}>
+                    <div>
+                        <IconButton>
+                            <FavoriteOutlined/>
+                        </IconButton>
+                        <IconButton>
+                            <CommentOutlined />
+                        </IconButton>
+                    </div>
+                    <IconButton >
+                        <MoreVertRounded onClick={handleClickOptions}/>
                     </IconButton>
                 </CardActions>
 
@@ -50,6 +68,7 @@ function BoardDialog(props) {
                     {props.card.description}
                 </CardContent>
             </Card>
+            <MoreOptionsPopover open={open} anchorEl={anchorEl} handleClose={handleClose}/>
         </Dialog>
     )
 }

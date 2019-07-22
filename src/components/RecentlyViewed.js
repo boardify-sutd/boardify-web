@@ -57,13 +57,11 @@ function RecentlyViewed(props) {
                 </div>
                 <Grid container spacing={3}>
                     {favourites.map(fave => 
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <LazyBoardCard
-                            handleClickOpen={handleClickOpen} 
-                            card={fave} 
-                            url={fave.url} 
-                            title={fave.title}/>
-                    </Suspense>
+                    <BoardSmallCard
+                        handleClickOpen={handleClickOpen} 
+                        card={fave} 
+                        url={fave.url} 
+                        title={fave.title}/>
                     )}
                 </Grid>
             </Container>

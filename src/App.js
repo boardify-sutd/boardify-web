@@ -211,7 +211,7 @@ function App(props) {
               <ListItemText primary="My Modules" />
             </ListItem>
 
-            <ListItem button component={Link} to="/weeks">
+            <ListItem button component={Link} to="/recent">
               <ListItemIcon>
                 <ViewCompact />
               </ListItemIcon>
