@@ -4,6 +4,7 @@ import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
 import BoardSmallCard from './BoardSmallCard'
 import BoardDialog from './BoardDialog'
+import PlaceholderCard from './PlaceholderCard'
 
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
@@ -25,11 +26,12 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 /* Change breadcrumb link color to gray*/
-
+const placeholderArray = ['0', '1', '2', '3', '4', '5', '6', '7']
 function ClassesWeek(props) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
     const [card, setCard] = React.useState('');
+    const [ready, setReady] = React.useState(false);
     const [boards, setBoards] = React.useState([]);
 
     function handleClickOpen(event, card) {
@@ -47,7 +49,8 @@ function ClassesWeek(props) {
             .then(response => response.json())
             .then(data => {
               setBoards(data.boards);
-            });           
+            });     
+            setReady(true);      
     });
 
     return (
@@ -84,9 +87,9 @@ function ClassesWeek(props) {
                 </Breadcrumbs>
 
                 <Grid container spacing={3}>
-                    {boards.map(card => (
+                    {ready ? boards.map(card => (
                         <BoardSmallCard handleClickOpen={handleClickOpen} card={card} url={card.url} title={card.title} />
-                    ))}
+                    )): placeholderArray.map(place => <PlaceholderCard />)}
                 </Grid>
             </Container>
 

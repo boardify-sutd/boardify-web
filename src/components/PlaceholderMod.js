@@ -2,7 +2,7 @@ import React from "react";
 import {
   makeStyles
 } from "@material-ui/core";
-import '../PlaceholderCard.scss'
+import '../PlaceholderMod.scss'
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function PlaceholderCard(props) {
+function PlaceholderMod(props) {
     const classes = useStyles()
 
     return (
@@ -25,4 +25,4 @@ function PlaceholderCard(props) {
     )   
 }
 
-export default PlaceholderCard
+export default PlaceholderMod

@@ -17,10 +17,10 @@ function MoreOptionsPopover(props){
                 }}
                 >
                 <List component="nav">
-                    <ListItem>
+                    <ListItem button>
                         Download
                     </ListItem>
-                    <ListItem>
+                    <ListItem button>
                         Save to favourites
                     </ListItem>
                 </List>

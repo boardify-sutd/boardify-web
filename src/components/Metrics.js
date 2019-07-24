@@ -1,24 +1,15 @@
 import React, {useEffect, Suspense, lazy } from "react";
 import {
   makeStyles,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
+  Typography
 } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import BoardDialog from './BoardDialog';
-import BoardSmallCard from './BoardSmallCard';
-import ModuleCard from './ModuleCard'
-import { Link } from 'react-router-dom';
-import PlaceholderCard from "./PlaceholderCard";
 
 const useStyles = makeStyles((theme) => ({
     metrics: {
         display: 'flex',
-        flexDirection: 'column'
-    }
+        flexDirection: 'column',
+        alignItems: 'center'
+    }, 
 }))
 
 function Metrics(props) {
@@ -26,8 +17,8 @@ function Metrics(props) {
 
     return (
         <div className={classes.metrics}>
-            <Typography>52</Typography>
-            <Typography>Upvotes</Typography>
+            <Typography variant="h3" className={classes.number}>{props.number}</Typography>
+            <Typography>{props.metricname}</Typography>
         </div>
 
     )   

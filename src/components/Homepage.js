@@ -63,8 +63,6 @@ function Homepage() {
     const [open, setOpen] = React.useState(false);
     const [card, setCard] = React.useState('');
     const [ready, setReady] = React.useState(false);
-    // const [boards, setBoards] = React.useState([]);
-    // const [favourites, setFavourites] = React.useState([]);
     const [recents, setRecents] = React.useState([]);
 
     function handleClickOpen(event, card) {
@@ -82,12 +80,8 @@ function Homepage() {
             .then(response => response.json())
             .then(data => {
               if (data.boards.length > 8) {
-                // setBoards(data.boards.slice(0, 8));
-                // setFavourites(data.boards.slice(0, 8));
                 setRecents(data.boards.slice(0, 8)) //only get the eight most recent
               } else {
-                // setBoards(data.boards)
-                // setFavourites(data.boards)
                 setRecents(data.boards)
               }
               setReady(true);

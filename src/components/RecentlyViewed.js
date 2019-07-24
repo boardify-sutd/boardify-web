@@ -4,6 +4,7 @@ import MoreVertRounded from '@material-ui/icons/MoreVertRounded'
 import { Link } from 'react-router-dom';
 import BoardSmallCard from './BoardSmallCard'
 import BoardDialog from './BoardDialog'
+import PlaceholderCard from './PlaceholderCard';
 
 const LazyBoardCard = lazy(() => import('./BoardSmallCard'))
 
@@ -18,11 +19,13 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+const placeholderArray = ['0', '1', '2', '3', '4', '5', '6', '7']
 function RecentlyViewed(props) {
     const classes = useStyles()
 
     const [open, setOpen] = React.useState(false);
     const [card, setCard] = React.useState('');
+    const [ready, setReady] = React.useState(false);
     const [favourites, setFavourites] = React.useState([]);
 
     function handleClickOpen(event, card) {
@@ -44,6 +47,7 @@ function RecentlyViewed(props) {
               } else {
                 setFavourites(data.boards)
               }
+              setReady(true);
             });           
     });
 
@@ -56,13 +60,13 @@ function RecentlyViewed(props) {
                     </Typography>
                 </div>
                 <Grid container spacing={3}>
-                    {favourites.map(fave => 
+                    {ready ? favourites.map(fave => 
                     <BoardSmallCard
                         handleClickOpen={handleClickOpen} 
                         card={fave} 
                         url={fave.url} 
                         title={fave.title}/>
-                    )}
+                    ): placeholderArray.map(place => <PlaceholderCard />)}
                 </Grid>
             </Container>
             <BoardDialog open={open} handleClose={handleClose} card={card}/>

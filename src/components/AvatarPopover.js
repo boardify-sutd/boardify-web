@@ -5,7 +5,8 @@ import {
   List,
   ListItem,
   Popover,
-  Typography
+  Typography,
+  Divider
 } from "@material-ui/core";
 import MoreVertRounded from "@material-ui/icons/MoreVertRounded";
 import Button from "@material-ui/core/Button";
@@ -16,10 +17,6 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import Metrics from "./Metrics";
 
 const useStyles =  makeStyles((theme) => ({
-    metrics: {
-        display: 'flex', 
-        justifyContent: 'space-around'
-    }
 }))
 
 function AvatarPopover(props) {
@@ -40,17 +37,18 @@ function AvatarPopover(props) {
         }}
         >
         <List component="div">
-            <ListItem className={classes.metrics}>
-                <Metrics className={classes.metricItem}/>
-                <Metrics />
+            <ListItem >
+                <Metrics number="52" metricname="Upvotes"/>
+                <Metrics number="10" metricname="Downvotes"/>
             </ListItem>
-            <ListItem>
+            <Divider />
+            <ListItem button>
                 Leaderboard
             </ListItem>
-            <ListItem>
+            <ListItem button>
                 Help
             </ListItem>
-            <ListItem>
+            <ListItem button>
                 Log Out
             </ListItem>
         </List>
